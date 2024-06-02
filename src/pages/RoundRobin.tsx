@@ -7,13 +7,15 @@ import { fakeMatches, fakePlayers } from "../lib/fake-data";
 import "../styles/round-robin.css";
 import { FirestorePlayerGateway } from "../lib/infras/firestore-player.gateway";
 import { FirestoreMatchGateway } from "../lib/infras/firestore-match.gateway";
-import { inProd } from "../config/config";
+
+const usedDB = import.meta.env.VITE_USED_DB;
+
 
 const RoundRobin = () => {
   let playerGateway: FakePlayerGateway | FirestorePlayerGateway;
   let matchGateway: FakeMatchGateway | FirestoreMatchGateway;
 
-  if (inProd) {
+  if (usedDB === 'firestore') {
     playerGateway = new FirestorePlayerGateway();
     matchGateway = new FirestoreMatchGateway();
   } else {

@@ -4,12 +4,12 @@ import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCAtz6Fe34C6uPE7bQAbFepeMQh_0985qg",
-  authDomain: "theia-fifa-championship.firebaseapp.com",
-  projectId: "theia-fifa-championship",
-  storageBucket: "theia-fifa-championship.appspot.com",
-  messagingSenderId: "724744838989",
-  appId: "1:724744838989:web:3714d1421b79f235836104",
+  apiKey: import.meta.env.VITE_FS_API_KEY,
+  authDomain: import.meta.env.VITE_FS_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FS_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FS_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FS_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FS_APP_ID,
 };
 
 // Initialize Firebase
