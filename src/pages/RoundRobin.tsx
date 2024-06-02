@@ -4,21 +4,33 @@ import { FakePlayerGateway } from "../lib/infras/fake-player.gateway";
 import { FakeMatchGateway } from "../lib/infras/fake-match.gateway";
 import GetRoundRobinUsecase from "../lib/usecases/retrieve-round-robin.usecase";
 import { fakeMatches, fakePlayers } from "../lib/fake-data";
-import '../styles/round-robin.css'
+import "../styles/round-robin.css";
+import { FirestorePlayerGateway } from "../lib/infras/firestore-player.gateway";
+import { FirestoreMatchGateway } from "../lib/infras/firestore-match.gateway";
+import { inProd } from "../config/config";
 
 const RoundRobin = () => {
-  const playerGateway = new FakePlayerGateway();
-  const matchGateway = new FakeMatchGateway();
-  const getRoundRobinUsecase: GetRoundRobinUsecase = new GetRoundRobinUsecase();
+  let playerGateway: FakePlayerGateway | FirestorePlayerGateway;
+  let matchGateway: FakeMatchGateway | FirestoreMatchGateway;
 
-  playerGateway.populate(fakePlayers);
-  matchGateway.populate(fakeMatches);
+  if (inProd) {
+    playerGateway = new FirestorePlayerGateway();
+    matchGateway = new FirestoreMatchGateway();
+  } else {
+    playerGateway = new FakePlayerGateway();
+    matchGateway = new FakeMatchGateway();
+    playerGateway.populate(fakePlayers);
+    matchGateway.populate(fakeMatches);
+  }
+
+  const getRoundRobinUsecase: GetRoundRobinUsecase = new GetRoundRobinUsecase();
 
   const [players, setPlayers] = useState<RoundRobinPlayer[]>([]);
 
   useEffect(() => {
     async function getPlayers() {
       const newPlayers = await getRoundRobinUsecase.handle(playerGateway, matchGateway);
+
       setPlayers(newPlayers);
     }
     if (players.length === 0) {
@@ -34,7 +46,6 @@ const RoundRobin = () => {
 
   return (
     <>
-      
       <div className="round-robin-container">
         <table className="round-robin">
           <thead>
