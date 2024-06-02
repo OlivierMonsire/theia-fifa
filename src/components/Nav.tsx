@@ -6,7 +6,7 @@ const Nav = () => {
       <div className="brand">
         <a href="/">
           <img src="/logo.webp" alt="logo" />
-          <span>Theia Championship</span>
+          <span>Theia Fifa Championship</span>
         </a>
       </div>
       <ul className="nav-list">
