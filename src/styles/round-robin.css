@@ -1,27 +1,7 @@
-.round-robin-container {
-  overflow-y: auto;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+
 
 .round-robin {
-  --border-clr: #ccc;
-  --head-clr: #e3e3e3;
-  --cell-clr: white;
   --empty-cell-clr: #f2f2f2;
-
-  width: 100%;
-  margin: auto;
-  border-collapse: collapse;
-  background-color: var(--cell-clr);
-}
-
-.round-robin th,
-td {
-  border: 1px solid var(--border-clr);
-  padding: 1rem;
-  text-align: center;
-  white-space: nowrap;
-  min-width: 5rem;
 }
 
 .round-robin thead th {

@@ -48,7 +48,7 @@ const RoundRobin = () => {
 
   return (
     <>
-      <div className="round-robin-container">
+      <div className="table-container">
         <table className="round-robin">
           <thead>
             <tr>
