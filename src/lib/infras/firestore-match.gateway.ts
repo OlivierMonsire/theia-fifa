@@ -9,7 +9,6 @@ export class FirestoreMatchGateway implements MatchGateway {
     return querySnapshot.docs.map((doc) => {
       const data = doc.data() as Match;
       return {
-        id: doc.id,
         ...data,
       };
     });
