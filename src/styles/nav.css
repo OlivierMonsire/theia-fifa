@@ -7,8 +7,15 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.nav .logo img {
+.nav .brand img {
   width: 30px;
+}
+
+.nav .brand a {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-weight: bold;
 }
 
 .nav-list {

@@ -3,9 +3,10 @@ import "../styles/nav.css";
 const Nav = () => {
   return (
     <div className="nav">
-      <div className="logo">
+      <div className="brand">
         <a href="/">
           <img src="/logo.webp" alt="logo" />
+          <span>Theia Championship</span>
         </a>
       </div>
       <ul className="nav-list">
