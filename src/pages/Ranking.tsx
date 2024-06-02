@@ -62,14 +62,17 @@ const Ranking = () => {
   };
 
   return (
-    <div className="table-container">
-      <table>
-        <thead>
-          <tr>{displayedLabels()}</tr>
-        </thead>
-        <tbody>{displayedTableRows()}</tbody>
-      </table>
-    </div>
+    <>
+      <h1 className="page-title">Classement</h1>
+      <div className="table-container">
+        <table>
+          <thead>
+            <tr>{displayedLabels()}</tr>
+          </thead>
+          <tbody>{displayedTableRows()}</tbody>
+        </table>
+      </div>
+    </>
   );
 };
 

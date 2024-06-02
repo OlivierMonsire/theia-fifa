@@ -10,12 +10,11 @@ import { FirestoreMatchGateway } from "../lib/infras/firestore-match.gateway";
 
 const usedDB = import.meta.env.VITE_USED_DB;
 
-
 const RoundRobin = () => {
   let playerGateway: FakePlayerGateway | FirestorePlayerGateway;
   let matchGateway: FakeMatchGateway | FirestoreMatchGateway;
 
-  if (usedDB === 'firestore') {
+  if (usedDB === "firestore") {
     playerGateway = new FirestorePlayerGateway();
     matchGateway = new FirestoreMatchGateway();
   } else {
@@ -48,6 +47,7 @@ const RoundRobin = () => {
 
   return (
     <>
+      <h1 className="page-title">Tableau des matchs</h1>
       <div className="table-container">
         <table className="round-robin">
           <thead>

@@ -1,11 +1,7 @@
 import "../styles/page-not-found.css";
 
 const PageNotFound = () => {
-  return (
-    <div className="page-not-found">
-      <h1>Cette page n'existe pas</h1>
-    </div>
-  );
+  return <h1 className="page-title">Page non trouvée</h1>;
 };
 
 export default PageNotFound;
