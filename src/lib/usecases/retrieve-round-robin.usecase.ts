@@ -21,15 +21,15 @@ export default class GetRoundRobinUsecase {
       };
 
       matches.forEach((m) => {
-        if (m.homePlayer.id === newPlayer.id) {
+        if (m.homePlayerId === newPlayer.id) {
           newPlayer.results.push({
-            opponentId: m.visitorPlayer.id,
-            score: `${m.homePlayer.goals} - ${m.visitorPlayer.goals}`,
+            opponentId: m.visitorPlayerId,
+            score: `${m.homePlayerGoals} - ${m.visitorPlayerGoals}`,
           });
-        } else if (m.visitorPlayer.id === newPlayer.id) {
+        } else if (m.visitorPlayerId === newPlayer.id) {
           newPlayer.results.push({
-            opponentId: m.homePlayer.id,
-            score: `${m.visitorPlayer.goals} - ${m.homePlayer.goals}`,
+            opponentId: m.homePlayerId,
+            score: `${m.visitorPlayerGoals} - ${m.homePlayerGoals}`,
           });
         }
       });

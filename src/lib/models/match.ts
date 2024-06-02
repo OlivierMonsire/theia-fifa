@@ -1,4 +1,6 @@
 export type Match = {
-  homePlayer: { id: string; goals: number };
-  visitorPlayer: { id: string; goals: number };
+  homePlayerId: string;
+  homePlayerGoals: number;
+  visitorPlayerId: string;
+  visitorPlayerGoals: number;
 };
