@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { RoundRobinPlayer } from "../lib/models/round-robin-player";
 import { FakePlayerGateway } from "../lib/infras/fake-player.gateway";
 import { FakeMatchGateway } from "../lib/infras/fake-match.gateway";
-import GetRoundRobinUsecase from "../lib/usecases/retrieve-round-robin.usecase";
+import GetRoundRobinUsecase from "../lib/usecases/get-round-robin.usecase";
 import { fakeMatches, fakePlayers } from "../lib/fake-data";
 import "../styles/round-robin.css";
 import { FirestorePlayerGateway } from "../lib/infras/firestore-player.gateway";

@@ -1,5 +1,5 @@
-import { MatchGateway } from "./../models/gateways/match.gateway";
-import { PlayerGateway } from "./../models/gateways/player.gateway";
+import { MatchGateway } from "../models/gateways/match.gateway";
+import { PlayerGateway } from "../models/gateways/player.gateway";
 import { RoundRobinPlayer } from "../models/round-robin-player";
 
 export default class GetRoundRobinUsecase {
