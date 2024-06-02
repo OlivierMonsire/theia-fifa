@@ -1,0 +1,1 @@
+export type RoundRobinPlayerResult = { opponentId: string; score: string };
