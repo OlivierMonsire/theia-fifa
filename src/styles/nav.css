@@ -1,0 +1,17 @@
+.nav {
+  padding: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.nav .logo img {
+  width: 30px;
+}
+
+.nav-list {
+  display: flex;
+  gap: 1rem;
+}
