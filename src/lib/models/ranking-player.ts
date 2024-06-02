@@ -1,13 +1,13 @@
 export type RankingPlayer = {
   id: string;
   name: string;
-  position: number;
+  rank: number;
   matchesPlayed: number;
-  victories: number;
-  looses: number;
+  wins: number;
+  losses: number;
   draws: number;
   goalsScored: number;
-  goalsAgainst: number;
+  goalsConceded: number;
   GoalsDiff: number;
   points: number;
 };

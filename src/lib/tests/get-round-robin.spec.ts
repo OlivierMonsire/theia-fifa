@@ -35,6 +35,7 @@ describe("Feature: Get scores by players order by player name", async () => {
     ]);
     fixture.givenMatches([
       {
+        id: "match-1",
         homePlayerId: "player-1",
         homePlayerGoals: 2,
         visitorPlayerId: "player-3",
@@ -58,9 +59,27 @@ describe("Feature: Get scores by players order by player name", async () => {
       { id: "player-5", name: "Elias" },
     ]);
     fixture.givenMatches([
-      { homePlayerId: "player-1", homePlayerGoals: 2, visitorPlayerId: "player-3", visitorPlayerGoals: 0 },
-      { homePlayerId: "player-2", homePlayerGoals: 0, visitorPlayerId: "player-5", visitorPlayerGoals: 0 },
-      { homePlayerId: "player-5", homePlayerGoals: 3, visitorPlayerId: "player-3", visitorPlayerGoals: 1 },
+      {
+        id: "match-1",
+        homePlayerId: "player-1",
+        homePlayerGoals: 2,
+        visitorPlayerId: "player-3",
+        visitorPlayerGoals: 0,
+      },
+      {
+        id: "match-2",
+        homePlayerId: "player-2",
+        homePlayerGoals: 0,
+        visitorPlayerId: "player-5",
+        visitorPlayerGoals: 0,
+      },
+      {
+        id: "match-3",
+        homePlayerId: "player-5",
+        homePlayerGoals: 3,
+        visitorPlayerId: "player-3",
+        visitorPlayerGoals: 1,
+      },
     ]);
     await fixture.whenGetRoundRobin();
     fixture.thenRoundRobinShouldBe([

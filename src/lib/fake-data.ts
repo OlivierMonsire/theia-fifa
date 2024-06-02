@@ -15,6 +15,6 @@ export const fakePlayers: Player[] = [
 ];
 
 export const fakeMatches: Match[] = [
-  { homePlayerId: "player-1", homePlayerGoals: 11, visitorPlayerId: "player-3", visitorPlayerGoals: 3 },
-  { homePlayerId: "player-1", homePlayerGoals: 1, visitorPlayerId: "player-2", visitorPlayerGoals: 0 },
+  { id: "match-1", homePlayerId: "player-1", homePlayerGoals: 11, visitorPlayerId: "player-3", visitorPlayerGoals: 3 },
+  { id: "match-2", homePlayerId: "player-1", homePlayerGoals: 1, visitorPlayerId: "player-2", visitorPlayerGoals: 0 },
 ];

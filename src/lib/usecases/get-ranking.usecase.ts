@@ -27,13 +27,13 @@ export default class GetRankingUsecase {
     return {
       id: newPlayer.id,
       name: newPlayer.name,
-      position: 1,
+      rank: 1,
       matchesPlayed: 0,
-      victories: 0,
-      looses: 0,
+      wins: 0,
+      losses: 0,
       draws: 0,
       goalsScored: 0,
-      goalsAgainst: 0,
+      goalsConceded: 0,
       GoalsDiff: 0,
       points: 0,
     };
@@ -43,11 +43,11 @@ export default class GetRankingUsecase {
     const playerMatches = matches.filter((m) => m.homePlayerId === player.id || m.visitorPlayerId === player.id);
     player.matchesPlayed = playerMatches.length;
 
-    player.victories = playerMatches.filter((m) => {
+    player.wins = playerMatches.filter((m) => {
       return this.isWinner(player.id, m);
     }).length;
 
-    player.looses = playerMatches.filter((m) => {
+    player.losses = playerMatches.filter((m) => {
       return !this.isWinner(player.id, m) && m.homePlayerGoals !== m.visitorPlayerGoals;
     }).length;
 
@@ -57,13 +57,13 @@ export default class GetRankingUsecase {
       return acc + (player.id === m.homePlayerId ? m.homePlayerGoals : m.visitorPlayerGoals);
     }, 0);
 
-    player.goalsAgainst = playerMatches.reduce((acc, m) => {
+    player.goalsConceded = playerMatches.reduce((acc, m) => {
       return acc + (player.id === m.homePlayerId ? m.visitorPlayerGoals : m.homePlayerGoals);
     }, 0);
 
-    player.GoalsDiff = player.goalsScored - player.goalsAgainst;
+    player.GoalsDiff = player.goalsScored - player.goalsConceded;
 
-    player.points = player.victories * 3 + player.draws;
+    player.points = player.wins * 3 + player.draws;
   };
 
   private isWinner(playerId: string, match: Match) {
@@ -76,13 +76,19 @@ export default class GetRankingUsecase {
   private makePositions(ranking: RankingPlayer[]): RankingPlayer[] {
     const sortedByPointsRanking = this.sortRanking(ranking);
 
-    let position = 1;
+    let rank = 1;
     const sortedRankingWithPoints: RankingPlayer[] = [];
     sortedByPointsRanking.forEach((p, i) => {
-      if (i !== 0 && sortedByPointsRanking[i].points !== sortedByPointsRanking[i - 1].points) {
-        position++;
+      if (i === 0) {
+        p.rank = rank;
+      } else if (sortedByPointsRanking[i].points === sortedByPointsRanking[i - 1].points) {
+        rank++;
+        p.rank = sortedByPointsRanking[i - 1].rank;
+      } else {
+        rank++;
+        p.rank = rank;
       }
-      p.position = position;
+
       sortedRankingWithPoints.push(p);
     });
 
