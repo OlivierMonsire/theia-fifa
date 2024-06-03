@@ -41,7 +41,7 @@ const Ranking = () => {
   });
 
   const displayedLabels = () => {
-    return labels.map((l) => <th>{l}</th>);
+    return labels.map((l, i) => <th key={i}>{l}</th>);
   };
 
   const displayedTableRows = () => {
