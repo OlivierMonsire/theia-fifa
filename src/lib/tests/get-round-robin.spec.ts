@@ -45,8 +45,8 @@ describe("Feature: Get scores by players order by player name", async () => {
     await fixture.whenGetRoundRobin();
     fixture.thenRoundRobinShouldBe([
       { id: "player-2", name: "Erin", results: [] },
-      { id: "player-1", name: "John", results: [{ opponentId: "player-3", score: "2 - 0" }] },
-      { id: "player-3", name: "Michael", results: [{ opponentId: "player-1", score: "0 - 2" }] },
+      { id: "player-1", name: "John", results: [{ opponentId: "player-3", matchId: "match-1", score: "2 - 0" }] },
+      { id: "player-3", name: "Michael", results: [{ opponentId: "player-1", matchId: "match-1", score: "0 - 2" }] },
     ]);
   });
 
@@ -87,19 +87,19 @@ describe("Feature: Get scores by players order by player name", async () => {
         id: "player-5",
         name: "Elias",
         results: [
-          { opponentId: "player-2", score: "0 - 0" },
-          { opponentId: "player-3", score: "3 - 1" },
+          { opponentId: "player-2", matchId: "match-2", score: "0 - 0" },
+          { opponentId: "player-3", matchId: "match-3", score: "3 - 1" },
         ],
       },
-      { id: "player-2", name: "Erin", results: [{ opponentId: "player-5", score: "0 - 0" }] },
+      { id: "player-2", name: "Erin", results: [{ opponentId: "player-5", matchId: "match-2", score: "0 - 0" }] },
       { id: "player-4", name: "Jade", results: [] },
-      { id: "player-1", name: "John", results: [{ opponentId: "player-3", score: "2 - 0" }] },
+      { id: "player-1", name: "John", results: [{ opponentId: "player-3", matchId: "match-1", score: "2 - 0" }] },
       {
         id: "player-3",
         name: "Michael",
         results: [
-          { opponentId: "player-1", score: "0 - 2" },
-          { opponentId: "player-5", score: "1 - 3" },
+          { opponentId: "player-1", matchId: "match-1", score: "0 - 2" },
+          { opponentId: "player-5", matchId: "match-3", score: "1 - 3" },
         ],
       },
     ]);

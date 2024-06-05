@@ -24,11 +24,13 @@ export default class GetRoundRobinUsecase {
         if (m.homePlayerId === newPlayer.id) {
           newPlayer.results.push({
             opponentId: m.visitorPlayerId,
+            matchId: m.id,
             score: `${m.homePlayerGoals} - ${m.visitorPlayerGoals}`,
           });
         } else if (m.visitorPlayerId === newPlayer.id) {
           newPlayer.results.push({
             opponentId: m.homePlayerId,
+            matchId: m.id,
             score: `${m.visitorPlayerGoals} - ${m.homePlayerGoals}`,
           });
         }
@@ -36,7 +38,7 @@ export default class GetRoundRobinUsecase {
 
       roundRobin.push(newPlayer);
     });
-    
+
     return Promise.resolve(roundRobin);
   }
 }

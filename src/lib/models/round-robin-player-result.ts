@@ -1,1 +1,1 @@
-export type RoundRobinPlayerResult = { opponentId: string; score: string };
+export type RoundRobinPlayerResult = { opponentId: string; matchId: string; score: string };
