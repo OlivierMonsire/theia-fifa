@@ -7,6 +7,8 @@ import { fakeMatches, fakePlayers } from "../lib/fake-data";
 import "../styles/round-robin.css";
 import { FirestorePlayerGateway } from "../lib/infras/firestore-player.gateway";
 import { FirestoreMatchGateway } from "../lib/infras/firestore-match.gateway";
+import RoundRobinHeader from "../components/round-robin/RoundRobinHeader";
+import RoundRobinBody from "../components/round-robin/RoundRobinBody";
 
 const usedDB = import.meta.env.VITE_USED_DB;
 
@@ -39,39 +41,13 @@ const RoundRobin = () => {
     }
   });
 
-  const getResult = (playerId: string, opponentId: string) => {
-    const player = players.find(({ id }) => playerId === id);
-    const score = player!.results.find((op) => opponentId === op.opponentId);
-    return score?.score;
-  };
-
   return (
     <>
       <h1 className="page-title">Tableau des matchs</h1>
       <div className="table-container">
         <table className="round-robin">
-          <thead>
-            <tr>
-              <th></th>
-              {players.map(({ id, name }) => (
-                <th key={id}>{name}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {players.map((p) => (
-              <tr key={p.id}>
-                <th>{p.name}</th>
-                {players.map((op) => {
-                  if (p.id === op.id) {
-                    return <td key={op.id} className="empty" />;
-                  } else {
-                    return <td key={op.id}>{getResult(p.id, op.id)}</td>;
-                  }
-                })}
-              </tr>
-            ))}
-          </tbody>
+          <RoundRobinHeader players={players} />
+          <RoundRobinBody players={players} />
         </table>
       </div>
     </>
