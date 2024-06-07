@@ -1,10 +1,10 @@
-import { createGetRankingFixture } from "./create-get-ranking.fixture";
+import { createFixture, Fixture } from "./create-get-ranking.fixture";
 
 describe("Feature: Get ranking", async () => {
   let fixture: Fixture;
 
   beforeEach(() => {
-    fixture = createGetRankingFixture();
+    fixture = createFixture();
   });
 
   it("Sam can see ranking but there is no players", async () => {
@@ -200,5 +200,3 @@ describe("Feature: Get ranking", async () => {
     ]);
   });
 });
-
-type Fixture = ReturnType<typeof createGetRankingFixture>;

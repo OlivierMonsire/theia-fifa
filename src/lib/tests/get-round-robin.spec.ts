@@ -1,10 +1,10 @@
-import { createGetRoundRobinFixture } from "./create-get-round-robin.fixture";
+import { createFixture, Fixture } from "./create-get-ranking.fixture";
 
 describe("Feature: Get scores by players order by player name", async () => {
   let fixture: Fixture;
 
   beforeEach(() => {
-    fixture = createGetRoundRobinFixture();
+    fixture = createFixture();
   });
 
   it("Sam can see all scores but there is no players", async () => {
@@ -105,5 +105,3 @@ describe("Feature: Get scores by players order by player name", async () => {
     ]);
   });
 });
-
-type Fixture = ReturnType<typeof createGetRoundRobinFixture>;
