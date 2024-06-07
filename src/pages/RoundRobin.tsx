@@ -10,15 +10,15 @@ import MatchPopup from "../components/MatchPopup";
 const RoundRobin = () => {
   const getRoundRobinUsecase: GetRoundRobinUsecase = new GetRoundRobinUsecase();
 
-  const [players, setPlayers] = useState<RoundRobinPlayer[]>([]);
+  const [roundRobin, setRoundRobin] = useState<RoundRobinPlayer[]>([]);
   const matchPopup = globalStore((state) => state.matchPopup);
 
   useEffect(() => {
     async function getPlayers() {
-      const newPlayers = await getRoundRobinUsecase.handle(globalStore.getState());
-      setPlayers(newPlayers);
+      const newRoundRobin = await getRoundRobinUsecase.handle();
+      setRoundRobin(newRoundRobin);
     }
-    if (players.length === 0) {
+    if (roundRobin.length === 0) {
       getPlayers();
     }
   });
@@ -29,8 +29,8 @@ const RoundRobin = () => {
       <h1 className="page-title">Tableau des matchs</h1>
       <div className="table-container">
         <table className="round-robin">
-          <RoundRobinHeader players={players} />
-          <RoundRobinBody players={players} />
+          <RoundRobinHeader players={roundRobin} />
+          <RoundRobinBody players={roundRobin} />
         </table>
       </div>
     </>

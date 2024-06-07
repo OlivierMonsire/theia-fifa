@@ -11,28 +11,18 @@ export type Fixture = ReturnType<typeof createFixture>;
 export const createFixture = () => {
   const getRankingUsecase = new GetRankingUsecase();
   const getRoundRobinUsecase = new GetRoundRobinUsecase();
-  const store = globalStore;
-  let ranking: RankingPlayer[] = [];
-  let roundRobin: RoundRobinPlayer[];
+  const { setPlayers, setMatches } = globalStore.getState();
   return {
-    givenPlayers: (players: Player[]) => {
-      const setPlayers = store.getState().setPlayers;
-      setPlayers(players);
-    },
-    givenMatches: (matches: Match[]) => {
-      const setMatches = store.getState().setMatches;
-      setMatches(matches);
-    },
-    whenGetRanking: async () => {
-      ranking = await getRankingUsecase.handle(store.getState());
-    },
-    whenGetRoundRobin: async () => {
-      roundRobin = await getRoundRobinUsecase.handle(store.getState());
-    },
+    givenPlayers: (players: Player[]) => setPlayers(players),
+    givenMatches: (matches: Match[]) => setMatches(matches),
+    whenGetRanking: async () => await getRankingUsecase.handle(),
+    whenGetRoundRobin: async () => await getRoundRobinUsecase.handle(),
     thenRankingShouldBe: (expectedRanking: RankingPlayer[]) => {
+      const { ranking } = globalStore.getState();
       expect(ranking).toEqual(expectedRanking);
     },
     thenRoundRobinShouldBe: (expectedRoundRobin: RoundRobinPlayer[]) => {
+      const { roundRobin } = globalStore.getState();
       expect(roundRobin).toEqual(expectedRoundRobin);
     },
   };
