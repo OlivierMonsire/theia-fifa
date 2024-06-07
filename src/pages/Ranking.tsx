@@ -1,23 +1,21 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import GetRankingUsecase from "../lib/usecases/get-ranking.usecase";
-import { RankingPlayer } from "../lib/models/ranking-player";
 import { globalStore } from "../lib/stores/store";
 
 const Ranking = () => {
   const labels = ["P", "J", "MJ", "V", "N", "D", "BM", "BE", "Diff", "Pts"];
-
   const getRankingUsecase: GetRankingUsecase = new GetRankingUsecase();
 
-  const [players, setPlayers] = useState<RankingPlayer[]>([]);
+  const { ranking } = globalStore((state) => ({
+    ranking: state.ranking,
+  }));
 
   useEffect(() => {
-    async function getPlayers() {
-      const newPlayers = await getRankingUsecase.handle(globalStore.getState());
-
-      setPlayers(newPlayers);
+    async function getRanking() {
+      getRankingUsecase.handle();
     }
-    if (players.length === 0) {
-      getPlayers();
+    if (ranking.length === 0) {
+      getRanking();
     }
   });
 
@@ -26,7 +24,7 @@ const Ranking = () => {
   };
 
   const displayedTableRows = () => {
-    return players.map((joueur, index) => (
+    return ranking.map((joueur, index) => (
       <tr key={index}>
         <td>{joueur.rank}</td>
         <td>{joueur.name}</td>

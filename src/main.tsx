@@ -28,8 +28,7 @@ if (usedDB === "firestore") {
 const players = await playerGateway.getAll();
 const matches = await matchGateway.getAll();
 
-const setPlayers = globalStore.getState().setPlayers;
-const setMatches = globalStore.getState().setMatches;
+const { setPlayers, setMatches } = globalStore.getState();
 
 setPlayers(players);
 setMatches(matches);
