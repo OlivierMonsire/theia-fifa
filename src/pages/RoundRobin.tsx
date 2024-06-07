@@ -5,17 +5,17 @@ import "../styles/round-robin.css";
 import RoundRobinHeader from "../components/round-robin/RoundRobinHeader";
 import RoundRobinBody from "../components/round-robin/RoundRobinBody";
 import { globalStore } from "../lib/stores/store";
+import MatchPopup from "../components/MatchPopup";
 
 const RoundRobin = () => {
-
   const getRoundRobinUsecase: GetRoundRobinUsecase = new GetRoundRobinUsecase();
 
   const [players, setPlayers] = useState<RoundRobinPlayer[]>([]);
+  const matchPopup = globalStore((state) => state.matchPopup);
 
   useEffect(() => {
     async function getPlayers() {
       const newPlayers = await getRoundRobinUsecase.handle(globalStore.getState());
-
       setPlayers(newPlayers);
     }
     if (players.length === 0) {
@@ -25,6 +25,7 @@ const RoundRobin = () => {
 
   return (
     <>
+      {matchPopup && <MatchPopup />}
       <h1 className="page-title">Tableau des matchs</h1>
       <div className="table-container">
         <table className="round-robin">

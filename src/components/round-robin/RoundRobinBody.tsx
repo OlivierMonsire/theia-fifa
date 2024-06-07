@@ -1,10 +1,16 @@
 import { RoundRobinPlayer } from "../../lib/models/round-robin-player";
+import { globalStore } from "../../lib/stores/store";
 
 const RoundRobinBody: React.FC<{ players: RoundRobinPlayer[] }> = ({ players }) => {
   const getResult = (playerId: string, opponentId: string) => {
     const player = players.find(({ id }) => playerId === id);
-    const score = player!.results.find((op) => opponentId === op.opponentId);
-    return score?.score;
+    const result = player!.results.find((op) => opponentId === op.opponentId);
+    return result?.score;
+  };
+
+  const updateMatchDetails = (pId: string, opId: string) => {
+    const storeState = globalStore.getState();
+    storeState.setMatchPopup(pId, opId);
   };
   return (
     <tbody>
@@ -15,7 +21,9 @@ const RoundRobinBody: React.FC<{ players: RoundRobinPlayer[] }> = ({ players }) 
             return p.id === op.id ? (
               <td key={op.id} className="empty" />
             ) : (
-              <td key={op.id}>{getResult(p.id, op.id)}</td>
+              <td onClick={() => updateMatchDetails(p.id, op.id)} key={op.id}>
+                {getResult(p.id, op.id)}
+              </td>
             );
           })}
         </tr>
