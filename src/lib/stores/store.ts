@@ -3,6 +3,16 @@ import { create } from "zustand";
 import { Player } from "../models/player";
 import { Match } from "../models/match";
 import { RankingPlayer } from "../models/ranking-player";
+import { fakePlayers, fakeMatches } from "../fake-data";
+import { FakeMatchGateway } from "../infras/fake-match.gateway";
+import { FakePlayerGateway } from "../infras/fake-player.gateway";
+import { FirestoreMatchGateway } from "../infras/firestore-match.gateway";
+import { FirestorePlayerGateway } from "../infras/firestore-player.gateway";
+
+const usedDB = import.meta.env.VITE_USED_DB;
+
+const getMatchGateway = () => (usedDB === "firestore" ? new FirestoreMatchGateway() : new FakeMatchGateway());
+const getPlayerGateway = () => (usedDB === "firestore" ? new FirestorePlayerGateway() : new FakePlayerGateway());
 
 export interface GlobalStoreState {
   players: Player[];
@@ -21,21 +31,39 @@ export interface GlobalStoreState {
   setRanking: (newRanking: RankingPlayer[]) => void;
 }
 
-export const globalStore = create<GlobalStoreState>()((set) => ({
-  players: [],
-  matches: [],
-  matchPopup: null,
+export const globalStore = create<GlobalStoreState>()((set, get) => {
+  const playerGateway = getPlayerGateway();
+  const matchGateway = getMatchGateway();
+  const initializeData = async () => {
+    if (playerGateway instanceof FakePlayerGateway) playerGateway.populate(fakePlayers);
+    if (matchGateway instanceof FakeMatchGateway) matchGateway.populate(fakeMatches);
 
-  roundRobin: [],
-  ranking: [],
+    const players = await playerGateway.getAll();
+    const matches = await matchGateway.getAll();
 
-  setPlayers: (newPlayers) => set({ players: newPlayers }),
-  setMatches: (newMatches) => set({ matches: newMatches }),
-  setMatchPopup: (p1Id, p2Id) => {
-    set({ matchPopup: { p1Id: p1Id, p2Id: p2Id } });
-  },
-  unsetMatchPopup: () => set({ matchPopup: null }),
+    const { setPlayers, setMatches } = get();
 
-  setRoundRobin: (newRoundRobin) => set({ roundRobin: newRoundRobin }),
-  setRanking: (newRanking) => set({ ranking: newRanking }),
-}));
+    setPlayers(players);
+    setMatches(matches);
+  };
+
+  initializeData();
+  return {
+    players: [],
+    matches: [],
+    matchPopup: null,
+
+    roundRobin: [],
+    ranking: [],
+
+    setPlayers: (newPlayers) => set({ players: newPlayers }),
+    setMatches: (newMatches) => set({ matches: newMatches }),
+    setMatchPopup: (p1Id, p2Id) => {
+      set({ matchPopup: { p1Id: p1Id, p2Id: p2Id } });
+    },
+    unsetMatchPopup: () => set({ matchPopup: null }),
+
+    setRoundRobin: (newRoundRobin) => set({ roundRobin: newRoundRobin }),
+    setRanking: (newRanking) => set({ ranking: newRanking }),
+  };
+});
