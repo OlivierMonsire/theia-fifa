@@ -1,24 +1,24 @@
-import { FakeMatchGateway } from "../infras/fake-match.gateway";
-import { FakePlayerGateway } from "../infras/fake-player.gateway";
 import { Match } from "../models/match";
 import { Player } from "../models/player";
 import { RankingPlayer } from "../models/ranking-player";
+import { globalStore } from "../stores/store";
 import GetRankingUsecase from "../usecases/get-ranking.usecase";
 
 export const createGetRankingFixture = () => {
-  const playerGateway = new FakePlayerGateway();
-  const matchGateway = new FakeMatchGateway();
   const getRankingUsecase = new GetRankingUsecase();
+  const store = globalStore;
   let ranking: RankingPlayer[] = [];
   return {
-    givenPlayers: (newPlayers: Player[]) => {
-      playerGateway.populate(newPlayers);
+    givenPlayers: (players: Player[]) => {
+      const setPlayers = store.getState().setPlayers;
+      setPlayers(players);
     },
-    givenMatches: (newMatches: Match[]) => {
-      matchGateway.populate(newMatches);
+    givenMatches: (matches: Match[]) => {
+      const setMatches = store.getState().setMatches;
+      setMatches(matches);
     },
     whenGetRanking: async () => {
-      ranking = await getRankingUsecase.handle(playerGateway, matchGateway);
+      ranking = await getRankingUsecase.handle(store.getState());
     },
     thenRankingShouldBe: (expectedRanking: RankingPlayer[]) => {
       expect(ranking).toEqual(expectedRanking);

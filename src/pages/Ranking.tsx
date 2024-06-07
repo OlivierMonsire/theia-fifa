@@ -1,29 +1,10 @@
 import { useState, useEffect } from "react";
-import { fakePlayers, fakeMatches } from "../lib/fake-data";
-import { FakeMatchGateway } from "../lib/infras/fake-match.gateway";
-import { FakePlayerGateway } from "../lib/infras/fake-player.gateway";
-import { FirestoreMatchGateway } from "../lib/infras/firestore-match.gateway";
-import { FirestorePlayerGateway } from "../lib/infras/firestore-player.gateway";
 import GetRankingUsecase from "../lib/usecases/get-ranking.usecase";
 import { RankingPlayer } from "../lib/models/ranking-player";
+import { globalStore } from "../lib/stores/store";
 
 const Ranking = () => {
   const labels = ["P", "J", "MJ", "V", "N", "D", "BM", "BE", "Diff", "Pts"];
-
-  const usedDB = import.meta.env.VITE_USED_DB;
-
-  let playerGateway: FakePlayerGateway | FirestorePlayerGateway;
-  let matchGateway: FakeMatchGateway | FirestoreMatchGateway;
-
-  if (usedDB === "firestore") {
-    playerGateway = new FirestorePlayerGateway();
-    matchGateway = new FirestoreMatchGateway();
-  } else {
-    playerGateway = new FakePlayerGateway();
-    matchGateway = new FakeMatchGateway();
-    playerGateway.populate(fakePlayers);
-    matchGateway.populate(fakeMatches);
-  }
 
   const getRankingUsecase: GetRankingUsecase = new GetRankingUsecase();
 
@@ -31,7 +12,7 @@ const Ranking = () => {
 
   useEffect(() => {
     async function getPlayers() {
-      const newPlayers = await getRankingUsecase.handle(playerGateway, matchGateway);
+      const newPlayers = await getRankingUsecase.handle(globalStore.getState());
 
       setPlayers(newPlayers);
     }

@@ -1,13 +1,12 @@
-import { MatchGateway } from "../models/gateways/match.gateway";
-import { PlayerGateway } from "../models/gateways/player.gateway";
 import { Match } from "../models/match";
 import { Player } from "../models/player";
 import { RankingPlayer } from "../models/ranking-player";
+import { GlobalStoreState } from "../stores/store";
 
 export default class GetRankingUsecase {
-  async handle(playerGateway: PlayerGateway, matchGateway: MatchGateway) {
-    const players = await playerGateway.getAll();
-    const matches = await matchGateway.getAll();
+  async handle(storeState: GlobalStoreState) {
+    const players = storeState.players;
+    const matches = storeState.matches;
 
     return this.initRanking(players, matches);
   }

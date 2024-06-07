@@ -1,11 +1,10 @@
-import { MatchGateway } from "../models/gateways/match.gateway";
-import { PlayerGateway } from "../models/gateways/player.gateway";
 import { RoundRobinPlayer } from "../models/round-robin-player";
+import { GlobalStoreState } from "../stores/store";
 
 export default class GetRoundRobinUsecase {
-  async handle(playerGateway: PlayerGateway, matchGateway: MatchGateway): Promise<RoundRobinPlayer[]> {
-    const players = await playerGateway.getAll();
-    const matches = await matchGateway.getAll();
+  async handle(storeState: GlobalStoreState): Promise<RoundRobinPlayer[]> {
+    const players = storeState.players;
+    const matches = storeState.matches;
 
     const roundRobin: RoundRobinPlayer[] = [];
     const sortedPlayers = players.sort((p1, p2) => {
