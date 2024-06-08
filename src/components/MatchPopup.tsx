@@ -3,7 +3,7 @@ import { globalStore } from "../lib/stores/store";
 import { Match } from "../lib/models/match";
 
 export const MatchPopup = () => {
-  const { matchPopup, players, matches, unsetMatchPopup } = globalStore((state) => state);
+  const { matchPopup, players, matches, unsetMatchPopup, persistMatch } = globalStore((state) => state);
 
   const match = matches.find(
     (m) =>
@@ -32,7 +32,8 @@ export const MatchPopup = () => {
       visitorPlayerGoals,
     };
 
-    console.log(newMatch);
+    persistMatch(newMatch);
+    unsetMatchPopup();
   };
 
   const closePopup = () => {

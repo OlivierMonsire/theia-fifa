@@ -9,4 +9,19 @@ export class FakeMatchGateway implements MatchGateway {
   getAll = async (): Promise<Match[]> => {
     return Promise.resolve(this.matches);
   };
+
+  persist = async (match: Match) => {
+    const index = this.matches.findIndex(
+      (m) =>
+        [match.homePlayerId, match.visitorPlayerId].includes(m.homePlayerId) &&
+        [match.homePlayerId, match.visitorPlayerId].includes(m.visitorPlayerId)
+    );
+
+    if (index !== -1) {
+      this.matches[index] = { ...this.matches[index], ...match };
+    } else {
+      match.id = `match-${this.matches.length + 1}`;
+      this.matches.push(match);
+    }
+  };
 }

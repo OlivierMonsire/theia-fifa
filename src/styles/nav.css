@@ -27,6 +27,10 @@
   gap: 1rem;
 }
 
+.nav-list a {
+  cursor: pointer;
+}
+
 @media (min-width: 600px) {
   .nav .brand span {
     display: block;

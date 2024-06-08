@@ -8,6 +8,8 @@ import { FakeMatchGateway } from "../infras/fake-match.gateway";
 import { FakePlayerGateway } from "../infras/fake-player.gateway";
 import { FirestoreMatchGateway } from "../infras/firestore-match.gateway";
 import { FirestorePlayerGateway } from "../infras/firestore-player.gateway";
+import GetRoundRobinUsecase from "../usecases/get-round-robin.usecase";
+import GetRankingUsecase from "../usecases/get-ranking.usecase";
 
 const usedDB = import.meta.env.VITE_USED_DB;
 
@@ -27,6 +29,8 @@ export interface GlobalStoreState {
   setMatchPopup: (p1Id: string, p2Id: string) => void;
   unsetMatchPopup: () => void;
 
+  persistMatch: (match: Match) => void;
+
   setRoundRobin: (newRoundRobin: RoundRobinPlayer[]) => void;
   setRanking: (newRanking: RankingPlayer[]) => void;
 }
@@ -34,6 +38,7 @@ export interface GlobalStoreState {
 export const globalStore = create<GlobalStoreState>()((set, get) => {
   const playerGateway = getPlayerGateway();
   const matchGateway = getMatchGateway();
+
   const initializeData = async () => {
     if (playerGateway instanceof FakePlayerGateway) playerGateway.populate(fakePlayers);
     if (matchGateway instanceof FakeMatchGateway) matchGateway.populate(fakeMatches);
@@ -62,6 +67,14 @@ export const globalStore = create<GlobalStoreState>()((set, get) => {
       set({ matchPopup: { p1Id: p1Id, p2Id: p2Id } });
     },
     unsetMatchPopup: () => set({ matchPopup: null }),
+
+    persistMatch: async (match) => {
+      matchGateway.persist(match);
+      const getRoundRobinUsecase = new GetRoundRobinUsecase();
+      const getRankingUsecase = new GetRankingUsecase();
+      await getRoundRobinUsecase.handle();
+      await getRankingUsecase.handle();
+    },
 
     setRoundRobin: (newRoundRobin) => set({ roundRobin: newRoundRobin }),
     setRanking: (newRanking) => set({ ranking: newRanking }),

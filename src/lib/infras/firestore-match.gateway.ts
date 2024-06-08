@@ -17,4 +17,8 @@ export class FirestoreMatchGateway implements MatchGateway {
   getAll = async (): Promise<Match[]> => {
     return await this.fetchData();
   };
+
+  persist(match: Match): void {
+    console.log(match);
+  }
 }
