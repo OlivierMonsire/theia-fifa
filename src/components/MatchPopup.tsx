@@ -59,14 +59,16 @@ export const MatchPopup = () => {
                   type="number"
                   min={0}
                   max={99}
-                  value={homePlayerGoals}
+                  defaultValue={homePlayerGoals}
                   name="home-player"
                   onChange={(e) => setHomePlayerGoals(Number(e.target.value))}
                 />
               </label>
             </div>
+            <span className="versus-label">vs</span>
             <div>
               <label>
+              <span>{visitorPlayerName}</span>
                 <input
                   type="number"
                   min={0}
@@ -74,7 +76,7 @@ export const MatchPopup = () => {
                   defaultValue={visitorPlayerGoals}
                   name="visitor-player"
                   onChange={(e) => setVisitorPlayerGoals(Number(e.target.value))}
-                /><span>{visitorPlayerName}</span>
+                />
               </label>
               
             </div>

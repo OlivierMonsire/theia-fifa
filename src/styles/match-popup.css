@@ -16,7 +16,7 @@
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 .2rem rgba(0, 0, 0, 0.2);
-
+  width: min(100%, 500px);
   z-index: 99;
 }
 
@@ -31,26 +31,44 @@
 
 .form-columns-wrapper {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 3fr 1fr 3fr;
   gap: 2rem;
 }
 
 .form-columns-wrapper label {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   gap: 1rem;
   width: 100%;
 }
 
-.form-columns-wrapper > div{
+.versus-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+}
+
+@media (min-width: 600px) {
+  .form-columns-wrapper div:first-child label {
+    flex-direction: row;
+  }
+
+  .form-columns-wrapper div:last-child label {
+    flex-direction: row-reverse;
+  }
+}
+
+
+.form-columns-wrapper > div {
   display: flex;
   align-items: center;
 }
 
 
 
-.form-columns-wrapper span {
+.form-columns-wrapper div span {
   display: block;
   font-size: 1.5rem;
   width: 100%;
