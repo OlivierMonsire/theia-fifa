@@ -1,6 +1,7 @@
 import { FormEvent, useState } from "react";
 import { globalStore } from "../lib/stores/store";
 import { Match } from "../lib/models/match";
+import "../styles/match-popup.css";
 
 export const MatchPopup = () => {
   const { matchPopup, players, matches, unsetMatchPopup, persistMatch } = globalStore((state) => state);
@@ -50,33 +51,36 @@ export const MatchPopup = () => {
     <div onClick={handleBackgroundClick} className="match-popup-bg">
       <div className="match-popup">
         <form onSubmit={handleSubmit}>
-          <div>
-            <label>
-              {homePlayerName}:
-              <input
-                type="number"
-                min={0}
-                max={99}
-                value={homePlayerGoals}
-                name="home-player"
-                onChange={(e) => setHomePlayerGoals(Number(e.target.value))}
-              />
-            </label>
+          <div className="form-columns-wrapper">
+            <div>
+              <label>
+                <span>{homePlayerName}</span>
+                <input
+                  type="number"
+                  min={0}
+                  max={99}
+                  value={homePlayerGoals}
+                  name="home-player"
+                  onChange={(e) => setHomePlayerGoals(Number(e.target.value))}
+                />
+              </label>
+            </div>
+            <div>
+              <label>
+                <input
+                  type="number"
+                  min={0}
+                  max={99}
+                  defaultValue={visitorPlayerGoals}
+                  name="visitor-player"
+                  onChange={(e) => setVisitorPlayerGoals(Number(e.target.value))}
+                /><span>{visitorPlayerName}</span>
+              </label>
+              
+            </div>
           </div>
-          <div>
-            <label>
-              {visitorPlayerName}:
-              <input
-                type="number"
-                min={0}
-                max={99}
-                defaultValue={visitorPlayerGoals}
-                name="visitor-player"
-                onChange={(e) => setVisitorPlayerGoals(Number(e.target.value))}
-              />
-            </label>
-          </div>
-          <button type="submit">Mettre à jour le score</button>
+
+          <button type="submit">{match ? "Mettre à jour le score" : "Ajouter le match"}</button>
         </form>
       </div>
     </div>
