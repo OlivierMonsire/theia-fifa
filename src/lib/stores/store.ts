@@ -50,6 +50,11 @@ export const globalStore = create<GlobalStoreState>()((set, get) => {
 
     setPlayers(players);
     setMatches(matches);
+
+    const getRoundRobinUsecase = new GetRoundRobinUsecase();
+    const getRankingUsecase = new GetRankingUsecase();
+    await getRoundRobinUsecase.handle();
+    await getRankingUsecase.handle();
   };
 
   initializeData();
@@ -61,12 +66,10 @@ export const globalStore = create<GlobalStoreState>()((set, get) => {
     roundRobin: [],
     ranking: [],
 
-    setPlayers: (newPlayers) => set({ players: newPlayers }),
-    setMatches: (newMatches) => set({ matches: newMatches }),
-    setMatchPopup: (p1Id, p2Id) => {
-      set({ matchPopup: { p1Id: p1Id, p2Id: p2Id } });
-    },
-    unsetMatchPopup: () => set({ matchPopup: null }),
+    setPlayers: (newPlayers) => set(state => ({ ...state, players: newPlayers })),
+    setMatches: (newMatches) => set(state => ({ ...state, matches: newMatches })),
+    setMatchPopup: (p1Id, p2Id) => set(state => ({ ...state, matchPopup: { p1Id, p2Id } })),
+    unsetMatchPopup: () => set(state => ({ ...state, matchPopup: null })),
 
     persistMatch: async (match) => {
       matchGateway.persist(match);
@@ -76,7 +79,7 @@ export const globalStore = create<GlobalStoreState>()((set, get) => {
       await getRankingUsecase.handle();
     },
 
-    setRoundRobin: (newRoundRobin) => set({ roundRobin: newRoundRobin }),
-    setRanking: (newRanking) => set({ ranking: newRanking }),
+    setRoundRobin: (newRoundRobin) => set(state => ({ ...state, roundRobin: newRoundRobin })),
+    setRanking: (newRanking) => set(state => ({ ...state, ranking: newRanking })),
   };
 });

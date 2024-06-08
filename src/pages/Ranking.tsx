@@ -1,23 +1,11 @@
-import { useEffect } from "react";
-import GetRankingUsecase from "../lib/usecases/get-ranking.usecase";
 import { globalStore } from "../lib/stores/store";
 
 const Ranking = () => {
   const labels = ["P", "J", "MJ", "V", "N", "D", "BM", "BE", "Diff", "Pts"];
-  const getRankingUsecase: GetRankingUsecase = new GetRankingUsecase();
 
   const { ranking } = globalStore((state) => ({
     ranking: state.ranking,
   }));
-
-  useEffect(() => {
-    async function getRanking() {
-      getRankingUsecase.handle();
-    }
-    if (ranking.length === 0) {
-      getRanking();
-    }
-  });
 
   const displayedLabels = () => {
     return labels.map((l, i) => <th key={i}>{l}</th>);
