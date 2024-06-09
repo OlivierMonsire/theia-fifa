@@ -1,21 +1,7 @@
-
-
-.round-robin {
-  --empty-cell-clr: #f2f2f2;
-}
-
-.round-robin thead th {
-  position: sticky;
-  top: 0;
-  background-color: var(--head-clr);
-}
-
 .round-robin tbody th {
-  position: sticky;
-  left: 0;
   background-color: var(--head-clr);
 }
 
 .round-robin .empty {
-  background-color: var(--empty-cell-clr);
+  background-color: hsl(0, 0%, 0%, .1);
 }

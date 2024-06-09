@@ -12,9 +12,9 @@
 }
 
 .match-popup {
-  background: white;
+  background: var(--el-clr);
   padding: var(--spacing);
-  border-radius: 8px;
+  border-radius: .2rem;
   box-shadow: 0 0 .2rem rgba(0, 0, 0, 0.2);
   width: min(100%, 500px);
   z-index: 99;
@@ -77,11 +77,18 @@
 input {
   font-size: 1.5rem;
   text-align: center;
+  background-color: var(--bg-clr);
+  color: var(--ft-clr);
+  border: none;
+  border-radius: .2rem;
+
+  padding-inline: var(--spacing-s);
 }
 
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
-  opacity: 1;
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .match-popup form button {

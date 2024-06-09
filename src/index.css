@@ -15,6 +15,22 @@
   --cell-clr: var(--el-clr);
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --spacing-s: calc(var(--spacing) / 2);
+    --spacing-l: calc(var(--spacing) * 2);
+  
+    --ft-clr: white;
+    --el-clr: hsl(0, 0%, 33%);
+    --bg-clr: hsl(0, 0%, 18%);
+  
+    /* Table elements */
+    --border-clr: #232323;
+    --head-clr: #424242;
+    --cell-clr: var(--el-clr);
+  }
+}
+
 html,
 body {
   height: 100%;
