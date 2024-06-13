@@ -20,6 +20,8 @@ export class FirestoreMatchGateway implements MatchGateway {
   };
 
   async persist(match: Match): Promise<void> {
+    await this.getAll();
+    
     const index = this.matches.findIndex(
       (m) =>
         [match.homePlayerId, match.visitorPlayerId].includes(m.homePlayerId) &&
