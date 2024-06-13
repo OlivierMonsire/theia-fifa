@@ -13,6 +13,14 @@
   --border-clr: #ccc;
   --head-clr: #e3e3e3;
   --cell-clr: var(--el-clr);
+
+  font-size:10px;
+}
+
+@media (min-width: 600px) {
+ :root {
+  font-size:14px;
+ } 
 }
 
 @media (prefers-color-scheme: dark) {
@@ -75,7 +83,7 @@ a {
 
 .table-container {
   overflow: auto;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 .5rem rgba(0, 0, 0, 0.2);
 }
 
 table {
@@ -98,5 +106,5 @@ table thead th {
   position: sticky;
   top: 0;
   background-color: var(--head-clr);
-  z-index: 1; /* Assure que le thead reste au-dessus des autres éléments */
+  z-index: 1;
 }

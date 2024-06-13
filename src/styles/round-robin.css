@@ -1,4 +1,6 @@
 .round-robin tbody th {
+  position: sticky;
+  left: 0;
   background-color: var(--head-clr);
 }
 
