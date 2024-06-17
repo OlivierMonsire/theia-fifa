@@ -80,7 +80,10 @@ export default class GetRankingUsecase {
     sortedByPointsRanking.forEach((p, i) => {
       if (i === 0) {
         p.rank = rank;
-      } else if (sortedByPointsRanking[i].points === sortedByPointsRanking[i - 1].points) {
+      } else if (
+        sortedByPointsRanking[i].points === sortedByPointsRanking[i - 1].points &&
+        sortedByPointsRanking[i].GoalsDiff === sortedByPointsRanking[i - 1].GoalsDiff
+      ) {
         rank++;
         p.rank = sortedByPointsRanking[i - 1].rank;
       } else {
@@ -98,6 +101,8 @@ export default class GetRankingUsecase {
     return ranking.sort((p1, p2) => {
       if (p1.points > p2.points) return -1;
       else if (p1.points < p2.points) return 1;
+      else if (p1.GoalsDiff > p2.GoalsDiff) return -1;
+      else if (p1.GoalsDiff < p2.GoalsDiff) return 1;
       return 0;
     });
   }
