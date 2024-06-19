@@ -10,7 +10,7 @@ export class FakeMatchGateway implements MatchGateway {
     return Promise.resolve(this.matches);
   };
 
-  persist = async (match: Match) => {
+  persist = async (match: Match): Promise<Match[]> => {
     const index = this.matches.findIndex(
       (m) =>
         [match.homePlayerId, match.visitorPlayerId].includes(m.homePlayerId) &&
@@ -23,5 +23,7 @@ export class FakeMatchGateway implements MatchGateway {
       match.id = `match-${this.matches.length + 1}`;
       this.matches.push(match);
     }
+
+    return this.matches;
   };
 }

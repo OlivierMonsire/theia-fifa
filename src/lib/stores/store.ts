@@ -72,7 +72,8 @@ export const globalStore = create<GlobalStoreState>()((set, get) => {
     unsetMatchPopup: () => set((state) => ({ ...state, matchPopup: null })),
 
     persistMatch: async (match) => {
-      await matchGateway.persist(match);
+      const updatedMatches = await matchGateway.persist(match);
+      set((state) => ({ ...state, matches: updatedMatches })); 
       const getRoundRobinUsecase = new GetRoundRobinUsecase();
       const getRankingUsecase = new GetRankingUsecase();
       await getRoundRobinUsecase.handle();

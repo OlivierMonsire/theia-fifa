@@ -19,7 +19,7 @@ export class FirestoreMatchGateway implements MatchGateway {
     return this.matches;
   };
 
-  async persist(match: Match): Promise<void> {
+  async persist(match: Match): Promise<Match[]> {
     await this.getAll();
     
     const index = this.matches.findIndex(
@@ -40,5 +40,7 @@ export class FirestoreMatchGateway implements MatchGateway {
     } catch (error) {
       console.error("Error writing document: ", error);
     }
+
+    return this.matches;
   }
 }
