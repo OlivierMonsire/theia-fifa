@@ -4,6 +4,10 @@
   background-color: var(--head-clr);
 }
 
-.round-robin .empty {
-  background-color: hsl(0, 0%, 0%, .1);
+.round-robin .same-user {
+  background-color: hsl(0, 0%, 0%, .08);
+}
+
+.round-robin tbody td {
+  cursor: pointer;
 }

@@ -23,7 +23,7 @@ const RoundRobinBody = () => {
           <th>{p.name}</th>
           {roundRobin.map((op) => {
             return p.id === op.id ? (
-              <td key={op.id} className="empty" />
+              <td key={op.id} className="same-user" />
             ) : (
               <td onClick={() => updateMatchDetails(p.id, op.id)} key={op.id}>
                 {getResult(p.id, op.id)}
