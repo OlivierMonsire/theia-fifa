@@ -1,7 +1,7 @@
-import { globalStore } from "../../lib/stores/store";
+import appStore from "../../lib/stores/app-store";
 
 const RoundRobinBody = () => {
-  const { roundRobin, setMatchPopup } = globalStore((state) => ({
+  const { roundRobin, setMatchPopup } = appStore((state) => ({
     roundRobin: state.roundRobin,
     setMatchPopup: state.setMatchPopup,
   }));

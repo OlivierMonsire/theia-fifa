@@ -1,9 +1,9 @@
-import { globalStore } from "../lib/stores/store";
+import appStore from "../lib/stores/app-store";
 
 const Ranking = () => {
   const labels = ["P", "J", "MJ", "V", "N", "D", "BM", "BE", "Diff", "Pts"];
 
-  const { ranking } = globalStore((state) => ({
+  const { ranking } = appStore((state) => ({
     ranking: state.ranking,
   }));
 

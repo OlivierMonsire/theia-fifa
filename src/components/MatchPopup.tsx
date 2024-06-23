@@ -1,10 +1,10 @@
 import { FormEvent, useState } from "react";
-import { globalStore } from "../lib/stores/store";
 import { Match } from "../lib/models/match";
 import "../styles/match-popup.css";
+import appStore from "../lib/stores/app-store";
 
 export const MatchPopup = () => {
-  const { matchPopup, players, matches, unsetMatchPopup, persistMatch } = globalStore((state) => state);
+  const { matchPopup, players, matches, unsetMatchPopup, persistMatch } = appStore((state) => state);
 
   const match = matches.find(
     (m) =>
@@ -23,7 +23,7 @@ export const MatchPopup = () => {
   const homePlayerName = players.find((p) => p.id === homePlayerId)!.name;
   const visitorPlayerName = players.find((p) => p.id === visitorPlayerId)!.name;
 
-  const handleSubmit = (event: FormEvent) => {
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     const newMatch: Match = {
       id: match?.id || "",
@@ -34,6 +34,7 @@ export const MatchPopup = () => {
     };
 
     persistMatch(newMatch);
+
     unsetMatchPopup();
   };
 
@@ -68,7 +69,7 @@ export const MatchPopup = () => {
             <span className="versus-label">vs</span>
             <div>
               <label>
-              <span>{visitorPlayerName}</span>
+                <span>{visitorPlayerName}</span>
                 <input
                   type="number"
                   min={0}
@@ -78,7 +79,6 @@ export const MatchPopup = () => {
                   onChange={(e) => setVisitorPlayerGoals(Number(e.target.value))}
                 />
               </label>
-              
             </div>
           </div>
 

@@ -1,11 +1,11 @@
 import { Match } from "../models/match";
 import { Player } from "../models/player";
 import { RankingPlayer } from "../models/ranking-player";
-import { globalStore } from "../stores/store";
+import { GlobalStoreState } from "../stores/store";
 
 export default class GetRankingUsecase {
-  async handle() {
-    const { players, matches, setRanking } = globalStore.getState();
+  async handle(storeState: GlobalStoreState) {
+    const { players, matches, setRanking } = storeState;
 
     const ranking = this.initRanking(players, matches);
     setRanking(ranking);

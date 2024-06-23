@@ -1,11 +1,11 @@
 import "../styles/round-robin.css";
 import RoundRobinHeader from "../components/round-robin/RoundRobinHeader";
 import RoundRobinBody from "../components/round-robin/RoundRobinBody";
-import { globalStore } from "../lib/stores/store";
 import MatchPopup from "../components/MatchPopup";
+import appStore from "../lib/stores/app-store";
 
 const RoundRobin = () => {
-  const matchPopup = globalStore((state) => state.matchPopup);
+  const matchPopup = appStore((state) => state.matchPopup);
   return (
     <>
       {matchPopup && <MatchPopup />}

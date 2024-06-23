@@ -1,9 +1,9 @@
 import { RoundRobinPlayer } from "../models/round-robin-player";
-import { globalStore } from "../stores/store";
+import { GlobalStoreState } from "../stores/store";
 
 export default class GetRoundRobinUsecase {
-  async handle() {
-    const { players, matches, setRoundRobin } = globalStore.getState();
+  async handle(storeState: GlobalStoreState) {
+    const { players, matches, setRoundRobin } = storeState;
 
     const roundRobin: RoundRobinPlayer[] = [];
     const sortedPlayers = players.sort((p1, p2) => {
